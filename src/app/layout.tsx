@@ -1,6 +1,15 @@
+import { ConvexClientProvider } from "@/components/convex-client-provider";
+import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+import { Modals } from "@/components/modals";
+import { Toaster } from "@/components/ui/sonner";
+import { JotaiProvider } from "@/components/jotai-provider";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,12 +32,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+       <ConvexAuthNextjsServerProvider>
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <ConvexClientProvider>
+          <JotaiProvider>
+             <NuqsAdapter>
+          <Toaster/>
+          <Modals/>
+          {children}
+           </NuqsAdapter>
+          </JotaiProvider>
+        </ConvexClientProvider>
+        
       </body>
     </html>
+    </ConvexAuthNextjsServerProvider> 
   );
 }
