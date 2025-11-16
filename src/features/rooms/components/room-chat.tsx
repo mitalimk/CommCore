@@ -3,7 +3,7 @@
 import { useGetRoomMessages } from "../api/use-get-room-messages";
 import { useSendRoomMessage } from "../api/use-send-room-message";
 import { Loader, SendHorizontal } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,15 @@ export const RoomChat = ({ roomId }: RoomChatProps) => {
   const { data: messages, isLoading } = useGetRoomMessages({ roomId });
   const { mutate: sendMessage, isPending } = useSendRoomMessage();
   const [message, setMessage] = useState("");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,27 +68,30 @@ export const RoomChat = ({ roomId }: RoomChatProps) => {
             </p>
           </div>
         ) : (
-          messages.map((msg) => (
-            <div key={msg._id} className="flex items-start gap-3">
-              <Avatar className="size-8">
-                <AvatarImage src={msg.member?.user?.image} />
-                <AvatarFallback>
-                  {msg.member?.user?.name?.charAt(0)?.toUpperCase() || "?"}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <div className="flex items-baseline gap-2">
-                  <span className="font-semibold text-sm">
-                    {msg.member?.user?.name || "Unknown"}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    {format(new Date(msg.createdAt), "h:mm a")}
-                  </span>
+          <>
+            {messages.map((msg) => (
+              <div key={msg._id} className="flex items-start gap-3">
+                <Avatar className="size-8">
+                  <AvatarImage src={msg.member?.user?.image} />
+                  <AvatarFallback>
+                    {msg.member?.user?.name?.charAt(0)?.toUpperCase() || "?"}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1">
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-semibold text-sm">
+                      {msg.member?.user?.name || "Unknown"}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {format(new Date(msg.createdAt), "h:mm a")}
+                    </span>
+                  </div>
+                  <p className="text-sm mt-1">{msg.body}</p>
                 </div>
-                <p className="text-sm mt-1">{msg.body}</p>
               </div>
-            </div>
-          ))
+            ))}
+            <div ref={messagesEndRef} />
+          </>
         )}
       </div>
 

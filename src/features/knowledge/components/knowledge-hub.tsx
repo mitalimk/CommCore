@@ -3,6 +3,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NotesList } from "./notes-list";
 import { FaqsList } from "./faqs-list";
+import { DocumentsList } from "./documents-list";
 import { FileText, HelpCircle, FolderOpen } from "lucide-react";
 
 export const KnowledgeHub = () => {
@@ -35,15 +36,7 @@ export const KnowledgeHub = () => {
         </TabsContent>
 
         <TabsContent value="documents" className="flex-1 m-0">
-          <div className="h-full flex items-center justify-center">
-            <div className="text-center">
-              <FolderOpen className="size-12 mx-auto mb-4 text-muted-foreground" />
-              <h3 className="font-semibold mb-2">Documents Coming Soon</h3>
-              <p className="text-sm text-muted-foreground">
-                This feature is under development
-              </p>
-            </div>
-          </div>
+          <DocumentsList />
         </TabsContent>
       </Tabs>
     </div>

@@ -388,3 +388,23 @@ export const remove = mutation({
     return args.roomId;
   },
 });
+export const getById = query({
+  args: { roomId: v.id("discussionRooms") },
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) return null;
+
+    const room = await ctx.db.get(args.roomId);
+    if (!room) return null;
+
+    const memberCount = await ctx.db
+      .query("roomMembers")
+      .withIndex("by_room_id", (q) => q.eq("roomId", args.roomId))
+      .collect();
+
+    return {
+      ...room,
+      memberCount: memberCount.length,
+    };
+  },
+});
