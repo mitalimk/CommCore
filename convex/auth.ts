@@ -2,7 +2,9 @@ import GitHub from "@auth/core/providers/github";
 import Google from "@auth/core/providers/google";
 import Credentials from "@auth/core/providers/credentials";
 
-import { convexAuth } from "convex-helpers/server/auth";
+import { convexAuth } from "convex-dev/server/auth";
+import { Password } from "@convex-dev/auth/providers/password";
+
 import { DataModel } from "./_generated/dataModel";
 
 export const { auth, signIn, signOut, store, isAuthenticated } =

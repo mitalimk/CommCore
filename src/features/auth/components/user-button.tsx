@@ -60,7 +60,7 @@
 "use client";
 
 import { Loader, LogOut } from "lucide-react";
-import { useAuthActions } from "convex-helpers/react";
+import { useAuthActions } from "convex-dev/auth/react";
 import {
   Avatar,
   AvatarFallback,
