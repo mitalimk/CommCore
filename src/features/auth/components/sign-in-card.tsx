@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@radix-ui/react-separator";
 import { SignInFlow } from "../types";
 import { useState } from "react";
-import { useAuthActions } from "convex-dev/auth/react";
+import { useAuthActions } from "@convex-dev/auth/react";
 
 
 import { TriangleAlert } from "lucide-react";

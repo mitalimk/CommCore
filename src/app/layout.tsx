@@ -1,5 +1,5 @@
 import { ConvexClientProvider } from "@/components/convex-client-provider";
-import { ConvexAuthNextjsServerProvider } from "convex-dev/auth/react";
+import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/react";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import type { Metadata } from "next";

@@ -11,7 +11,7 @@ import { Separator } from "@radix-ui/react-separator";
 import { SignInFlow } from "../types";
 import { useState } from "react";
 import { TriangleAlert } from "lucide-react";
-import { useAuthActions } from "convex-dev/auth/react";
+import { useAuthActions } from "@convex-dev/auth/react";
 
 interface SignUpCardProps {
   setState: (state: SignInFlow) => void;
